@@ -1,0 +1,269 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap");
+:root {
+  --first-color: rgb(30, 33, 58);
+  --second-color: rgb(160, 159, 177);
+  --third-color: rgb(16, 14, 29);
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+}
+
+/* inicio seccion capa de busqueda */
+header {
+  position: absolute;
+  width: 100%;
+}
+
+.char-close {
+  cursor: pointer;
+}
+
+.layer-search {
+  background-color: var(--first-color);
+  color: white;
+  height: 100vh;
+  scroll-behavior: smooth;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.layer-search section div:nth-child(1) {
+  text-align: right;
+}
+.layer-search section > div {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+.layer-search section div form {
+  display: flex;
+  justify-content: space-between;
+}
+.layer-search section div form input[type="text"] {
+  width: 75%;
+  background-color: transparent;
+  border: none;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  padding: 0.5rem 0.8rem;
+  color: white;
+}
+.layer-search section div form input[type="submit"] {
+  color: white;
+  background-color: rgb(60, 71, 233);
+  padding: 0.5rem 0.8rem;
+  margin-left: 2%;
+  border: none;
+}
+
+.list-cities {
+  margin-bottom: 1.5rem;
+  border: 2px solid transparent;
+}
+.list-cities:hover {
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.7s ease-in-out;
+}
+.list-cities p {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* fin seccion capa de busqueda */
+/* inicio seccion para el boton de busqueda */
+.show-layer {
+  margin-top: 2rem;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.show-layer > aside {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.show-layer > aside button {
+  border: none;
+  color: white;
+  background-color: rgb(172, 170, 170);
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.show-layer > aside div span {
+  background-color: rgba(105, 98, 98, 0.5) !important;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+/* inicio seccion para el boton de busqueda */
+
+/* Parte del main- el tiempo actual */
+.background-cloud {
+  background-color: var(--first-color);
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-blend-mode: soft-light;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 7rem;
+}
+
+.icon-principal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.icon-principal figure {
+  margin-bottom: 0;
+}
+.icon-principal figure img {
+  width: 10rem;
+  height: auto;
+}
+.weather-temp {
+  color: white;
+  font-size: 8rem;
+  font-family: "Raleway", sans-serif;
+}
+.weather-temp span {
+  font-size: 2rem;
+  color: var(--second-color);
+}
+.weather-description {
+  color: var(--second-color);
+  font-size: 1.8rem;
+  font-family: "Raleway", sans-serif;
+  text-transform: capitalize;
+}
+.weather-date {
+  color: var(--second-color);
+  font-size: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  font-family: "Raleway", sans-serif;
+  justify-content: space-evenly;
+}
+.weather-location {
+  color: var(--second-color);
+  font-weight: bold;
+}
+/* Parte del main- Fin del tiempo actual */
+
+/* Main - segundo cuerpo*/
+.second-part {
+  background-color: var(--third-color);
+  /* height: 100vh; */
+  padding: 4rem 2rem 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.weather-card {
+  color: white;
+  background-color: var(--first-color);
+  margin-bottom: 2rem;
+  padding: 1rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 32vh;
+}
+.weather-card div:nth-child(3) {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.weather-card div:nth-child(3) span:nth-child(2) {
+  color: var(--second-color);
+}
+/* Main - segundo cuerpo*/
+
+/* Main - tercera parte del cuerpo */
+.third-part {
+  background-color: var(--third-color);
+  padding: 2rem 2rem 2rem;
+}
+.third-part h3 {
+  color: white;
+}
+.current-info-weather {
+  background-color: var(--first-color);
+  color: white;
+  padding: 2rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.current-info-weather aside h5 {
+  font-size: 0.8rem;
+}
+.current-info-weather div p {
+  font-size: 1.5rem;
+}
+.wind-speed {
+  font-size: 5rem;
+  line-height: 60%;
+}
+
+progress {
+  border: none;
+  height: 8px;
+}
+
+progress {
+  color: lightblue;
+}
+
+progress::-moz-progress-bar {
+  background: lightcolor;
+}
+
+progress::-webkit-progress-value {
+  background: orange;
+  border-radius: 10px;
+}
+
+progress::-webkit-progress-bar {
+  background: white;
+  border-radius: 10px;
+}
+
+/* Main - tercera parte del cuerpo */
+
+/* Footer */
+footer {
+  background-color: var(--third-color);
+  color: var(--second-color);
+  text-align: center;
+  font-size: 0.8rem;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+}
+/* Footer */

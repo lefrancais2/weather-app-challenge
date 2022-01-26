@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { Footer } from "./components/Footer";
+import Header from "./components/Header";
+import Main from "./components/Main";
+import fondo from "./assets/Cloud-background.png";
+import "./css/all.css";
 
 function App() {
+  const [dataCityCurrent, setDataCityCurrent] = useState(null);
+  const [dataCityForecast, setDataCityForecast] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header
+        setDataCityCurrent={setDataCityCurrent}
+        setDataCityForecast={setDataCityForecast}
+      />
+      {!dataCityCurrent && (
+        <section
+          className="background-cloud"
+          style={{
+            backgroundImage: `url(${fondo})`,
+            backgroundColor: "var(--first-color)",
+          }}
+        ></section>
+      )}
+      {dataCityCurrent && (
+        <Main
+          dataCityCurrent={dataCityCurrent}
+          dataCityForecast={dataCityForecast}
+        />
+      )}
+      <Footer />
     </div>
   );
 }
