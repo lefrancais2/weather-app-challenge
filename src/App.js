@@ -9,11 +9,14 @@ function App() {
   const [dataCityCurrent, setDataCityCurrent] = useState(null);
   const [dataCityForecast, setDataCityForecast] = useState(null);
 
+  const [loading, setLoading] = useState(false);
+
   return (
     <div>
       <Header
         setDataCityCurrent={setDataCityCurrent}
         setDataCityForecast={setDataCityForecast}
+        setLoading={setLoading}
       />
       {!dataCityCurrent && (
         <section
@@ -28,6 +31,7 @@ function App() {
         <Main
           dataCityCurrent={dataCityCurrent}
           dataCityForecast={dataCityForecast}
+          loading={loading}
         />
       )}
       <Footer />

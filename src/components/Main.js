@@ -1,17 +1,47 @@
-import { limaCurrentDayOW, limaNextDaysOW } from "../api/prueba";
+import { useEffect, useRef, useState } from "react";
 
 import fondo from "../assets/Cloud-background.png";
 import { castingIcons } from "../helpers/auxiliares";
 import CurrentInfoExtra from "./CurrentInfoExtra";
 import Forecast from "./Forecast";
+import Loader from "./Loader";
 
-const Main = ({ dataCityCurrent, dataCityForecast }) => {
-  // dataCityCurrent = limaCurrentDayOW;
-  // dataCityForecast = limaNextDaysOW;
+const Main = ({ dataCityCurrent, dataCityForecast, loading }) => {
+  const $celsius = useRef();
+  const $farenheit = useRef();
+
+  const [firstCelsius, setFirstCelsius] = useState(true);
+  const [tempCurrent, setTempCurrent] = useState(0);
 
   let dateToday = new Date(dataCityCurrent.dt * 1000);
   const dateString = dateToday.toDateString().split(" ");
   let date = `${dateString[0]} ${dateString[2]} ${dateString[1]}`;
+
+  const handlerCelsius = (e) => {
+    $celsius.current.style.backgroundColor = "white";
+    $celsius.current.style.color = "var(--second-color)";
+    $farenheit.current.style.backgroundColor = "var(--second-color)";
+    $farenheit.current.style.color = "white";
+    setFirstCelsius(true);
+  };
+
+  const handlerFarenheit = (e) => {
+    $farenheit.current.style.backgroundColor = "white";
+    $farenheit.current.style.color = "var(--second-color)";
+    $celsius.current.style.backgroundColor = "var(--second-color)";
+    $celsius.current.style.color = "white";
+    setFirstCelsius(false);
+  };
+
+  useEffect(() => {
+    if (firstCelsius) {
+      setTempCurrent(Math.floor(dataCityCurrent.main.temp - 273.15));
+    } else {
+      setTempCurrent(
+        Math.floor((dataCityCurrent.main.temp - 273.15) * (9 / 5) + 32)
+      );
+    }
+  }, [dataCityCurrent, firstCelsius]);
 
   return (
     <main>
@@ -22,11 +52,10 @@ const Main = ({ dataCityCurrent, dataCityForecast }) => {
           backgroundColor: "var(--first-color)",
         }}
       >
+        {/* {loading && <Loader />} */}
         <aside className="icon-principal">
           <figure>
             <img
-              //src={`http://openweathermap.org/img/wn/${dataCityCurrent.weather[0].icon}@2x.png`}
-              //src={`https://www.metaweather.com/static/img/weather/hc.svg`}
               src={`https://www.metaweather.com/static/img/weather/${castingIcons(
                 dataCityCurrent.weather[0].icon
               )}.svg`}
@@ -34,7 +63,7 @@ const Main = ({ dataCityCurrent, dataCityForecast }) => {
             />
           </figure>
           <p className="weather-temp">
-            {Math.floor(dataCityCurrent.main.temp - 273.15)}
+            {tempCurrent}
             <span>ºC</span>
           </p>
           <p className="weather-description">
@@ -44,54 +73,73 @@ const Main = ({ dataCityCurrent, dataCityForecast }) => {
             <span>Today</span>.<span>{date}</span>
           </p>
           <div className="weather-location">
-            <span class="material-icons">fmd_good</span>
+            <span className="material-icons">fmd_good</span>
             <span>{dataCityCurrent.name}</span>
           </div>
         </aside>
       </section>
-      <section className="second-part">
-        <Forecast data={dataCityForecast} />
-      </section>
-      <section className="third-part">
-        <aside>
-          <h3>Today's Hightlights</h3>
-        </aside>
-        <CurrentInfoExtra
-          data={Math.floor(dataCityCurrent.wind.speed)}
-          title="Wind status"
-          info="mph"
-        />
-        <article className="current-info-weather">
+      <section>
+        <div className="grados">
+          <div onClick={handlerCelsius} ref={$celsius} className="celsius">
+            ºC
+          </div>
+          <div
+            onClick={handlerFarenheit}
+            ref={$farenheit}
+            className="farenheit"
+          >
+            ºF
+          </div>
+        </div>
+        <section className="second-part">
+          <Forecast data={dataCityForecast} firstCelsius={firstCelsius} />
+        </section>
+        <section className="third-part">
           <aside>
-            <h5>Humidity</h5>
+            <h3>Today's Hightlights</h3>
           </aside>
-          <div>
-            <p>
-              <span className="wind-speed">
-                {dataCityCurrent.main.humidity}
-              </span>
-              %
-            </p>
-          </div>
-          <div>
-            <progress
-              min="0"
-              max="100"
-              value={dataCityCurrent.main.humidity}
-            ></progress>
-          </div>
-        </article>
+          <section className="flex-desktop">
+            <CurrentInfoExtra
+              data={Math.floor(dataCityCurrent.wind.speed)}
+              title="Wind status"
+              info="mph"
+            />
+            <article className="current-info-weather">
+              <aside>
+                <h5>Humidity</h5>
+              </aside>
+              <div>
+                <p>
+                  <span className="wind-speed">
+                    {dataCityCurrent.main.humidity}
+                  </span>
+                  %
+                </p>
+              </div>
+              <div>
+                <progress
+                  min="0"
+                  max="100"
+                  value={dataCityCurrent.main.humidity}
+                ></progress>
+              </div>
+            </article>
 
-        <CurrentInfoExtra
-          data={dataCityCurrent.visibility / 1000}
-          title="Visibility"
-          info="miles"
-        />
-        <CurrentInfoExtra
-          data={dataCityCurrent.main.pressure}
-          title="Air Pressure"
-          info="mb"
-        />
+            <CurrentInfoExtra
+              data={dataCityCurrent.visibility / 1000}
+              title="Visibility"
+              info="miles"
+            />
+            <CurrentInfoExtra
+              data={dataCityCurrent.main.pressure}
+              title="Air Pressure"
+              info="mb"
+            />
+          </section>
+        </section>
+        <section className="d-none d-md-none d-lg-block">
+          <p>Creado por Oscar Godoy - devChallenges.io</p>
+        </section>
       </section>
     </main>
   );

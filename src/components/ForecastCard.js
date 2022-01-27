@@ -1,7 +1,20 @@
+import { useEffect, useState } from "react";
 import { getDate, tomorrow } from "../helpers/auxiliares";
 
-const ForecastCard = ({ data }) => {
+const ForecastCard = ({ data, firstCelsius }) => {
   let fecha = getDate(data.dt);
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState(0);
+
+  useEffect(() => {
+    if (firstCelsius) {
+      setMax(Math.floor(data.temp.max - 273.15));
+      setMin(Math.floor(data.temp.min - 273.15));
+    } else {
+      setMax(Math.floor((data.temp.max - 273.15) * (9 / 5) + 32));
+      setMin(Math.floor((data.temp.min - 273.15) * (9 / 5) + 32));
+    }
+  }, [firstCelsius, max, min]);
 
   return (
     <article className="weather-card">
@@ -17,8 +30,8 @@ const ForecastCard = ({ data }) => {
         </figure>
       </div>
       <div>
-        <span>{Math.floor(data.temp.max - 273.15)}ºC</span>
-        <span>{Math.floor(data.temp.min - 273.15)}ºC</span>
+        <span>{max}ºC</span>
+        <span>{min}ºC</span>
       </div>
     </article>
   );
